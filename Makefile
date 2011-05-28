@@ -1,5 +1,5 @@
 CXX=g++-4.6 -std=c++0x
-CXXFLAGS=-g -Wall -Wextra
+CXXFLAGS=-O3 -Wall -Wextra
 
 all: simple_send_test
 
