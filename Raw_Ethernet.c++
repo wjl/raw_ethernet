@@ -97,6 +97,7 @@ namespace Raw_Ethernet {
   }
 
   void Socket::set_receive_timeout(double seconds) {
+    if (seconds < 0) seconds = 0;
     timeval tv;
     tv.tv_sec  = floor(seconds);
     tv.tv_usec = floor((seconds - tv.tv_sec) / 1e-6);
