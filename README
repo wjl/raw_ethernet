@@ -1,0 +1,16 @@
+Raw Ethernet C++ Library
+------------------------
+Wesley J. Landaker <wjl@icecavern.net>
+2011-05-28
+
+This is a simple library that abstracts a raw ethernet socket for sending and
+receiving.
+
+For a project I needed to access a raw ethernet socket to send and receive
+ethernet frames using a custom protocol at high speed. My first attempt using
+libdnet and libpcap functionally worked, but it was way too slow. Doing this
+with raw sockets is not hard, but getting it right, including all the necessary
+error checking, is fairly tedious.
+
+This was my solution. Since I haven't seen anything similiar in any library, I
+thought I'd toss this out there for anyone else interested to use.
