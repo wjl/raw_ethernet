@@ -90,7 +90,12 @@ namespace Raw_Ethernet {
         default: throw_with_errno("Error while receiving packet");
       }
     } else {
-      assert(err_or_size <= ETH_FRAME_LEN);
+      if (err_or_size > ETH_FRAME_LEN) {
+        throw Exception(
+          "Received packet too large: " +
+          boost::lexical_cast<std::string>(err_or_size)
+        );
+      }
       packet.resize(err_or_size);
     }
     return packet;
