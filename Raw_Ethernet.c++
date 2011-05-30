@@ -97,13 +97,20 @@ namespace Raw_Ethernet {
   }
 
   void Socket::set_receive_timeout(double seconds) {
-    if (seconds < 0) seconds = 0;
+    if (seconds < 0) throw_with_errno("Timeout cannot be negative");
+
+    // Extract the time components of the requested timeout
     timeval tv;
     tv.tv_sec  = floor(seconds);
     tv.tv_usec = floor((seconds - tv.tv_sec) / 1e-6);
+
+    // If the requested timeout is non-zero, ensure that the set timeout is
+    // also non-zero.
     if (seconds > 0 && tv.tv_sec == 0 && tv.tv_usec == 0) {
       tv.tv_usec = 1;
     }
+
+    // Set the socket timeout
     int err =
       setsockopt(detail->fd, SOL_SOCKET, SO_RCVTIMEO, &tv, sizeof(tv));
     if (err != 0) {
